@@ -1,23 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useCart } from './CartContext';
-import Products from './Products'
+import Products from './Products';
 
 const Shop = () => {
+    const { cart, addToCart } = useCart();
+    const [sortOrder, setSortOrder] = useState('asc'); // Default sort order is ascending
 
-    const { addToCart } = useCart();
+    // Function to sort products by price
+    const sortProducts = (order) => {
+        const sortedProducts = [...Products].sort((a, b) => {
+            if (order === 'asc') {
+                return a.price - b.price;
+            } else {
+                return b.price - a.price;
+            }
+        });
+        return sortedProducts;
+    };
+
+    // Function to handle sort order change
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+    };
+
+    // Function to add product to cart with alerts
+    const handleAddToCart = (product) => {
+        // Check if the item is already in the cart
+        const isItemInCart = cart.some(item => item.id === product.id);
+
+        if (!isItemInCart) {
+            addToCart(product);
+            alert('Item added to cart');
+        } else {
+            alert('Item is already in cart');
+        }
+    };
 
     return (
         <>
             <div className="container">
                 <div className="row">
-                    {Products.map((ele) => {
+                    <div className="col-md-12 mb-3">
+                        <select value={sortOrder} onChange={handleSortChange}>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
+                        </select>
+                    </div>
+                    {sortProducts(sortOrder).map((ele) => {
                         return (
-                            <div className="col-md-4 col-12 my-3" key={ele.id} >
+                            <div className="col-md-4 col-12 my-3" key={ele.id}>
                                 <div className="card">
                                     <img src={ele.ProductImage} alt="watch" className='img-fluid card-img' />
                                     <div className="card-body d-flex align-items-center justify-content-between">
-                                        <p>{ele.name}</p>
-                                        <button  onClick={() => addToCart(ele)}>Add to Cart</button>
+                                        <div>
+                                            <p>{ele.name}</p>
+                                            <h5>₹ {ele.price}</h5>
+                                        </div>
+                                        <button onClick={() => handleAddToCart(ele)}>Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -29,4 +68,4 @@ const Shop = () => {
     )
 }
 
-export default Shop
+export default Shop;

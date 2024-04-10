@@ -25,6 +25,7 @@ const Cart = () => {
                     <img src={ele.ProductImage} alt="watch" className='img-fluid card-img' />
                     <div className="card-body d-flex align-items-center justify-content-between">
                       <p>{ele.name}</p>
+                      <h5>₹ {ele.price}</h5>
                     </div>
                   </div>
                 </div>
