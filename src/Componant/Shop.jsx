@@ -4,9 +4,8 @@ import Products from './Products';
 
 const Shop = () => {
     const { cart, addToCart } = useCart();
-    const [sortOrder, setSortOrder] = useState('asc'); // Default sort order is ascending
+    const [sortOrder, setSortOrder] = useState('asc'); 
 
-    // Function to sort products by price
     const sortProducts = (order) => {
         const sortedProducts = [...Products].sort((a, b) => {
             if (order === 'asc') {
@@ -18,14 +17,11 @@ const Shop = () => {
         return sortedProducts;
     };
 
-    // Function to handle sort order change
     const handleSortChange = (e) => {
         setSortOrder(e.target.value);
     };
 
-    // Function to add product to cart with alerts
     const handleAddToCart = (product) => {
-        // Check if the item is already in the cart
         const isItemInCart = cart.some(item => item.id === product.id);
 
         if (!isItemInCart) {
