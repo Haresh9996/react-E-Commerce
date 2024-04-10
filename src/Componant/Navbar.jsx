@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import navlogo from '/assets/icon (2).png'
+import { TiShoppingCart } from "react-icons/ti";
 
 const Navbar = () => {
     return (
@@ -27,6 +28,9 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-NavLink"  to='/contact'>Contact us</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-NavLink"  to='/cart'><TiShoppingCart /></NavLink>
                             </li>
                         </ul>
                     </div>
